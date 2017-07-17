@@ -14,8 +14,9 @@ import butterknife.ButterKnife;
 class RecipesAdapter
         extends RecyclerView.Adapter<RecipesAdapter.ViewHolder> {
 
+    // Create new views (invoked by the layout manager)
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecipesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         int layoutIdForListItem = R.layout.recipes_list_item;
         final boolean shouldAttachToParentImmediately = false;
@@ -24,6 +25,7 @@ class RecipesAdapter
         return new ViewHolder(view);
     }
 
+    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         /* not yet implemented*/
@@ -35,10 +37,12 @@ class RecipesAdapter
         return 3;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @BindView(R.id.tv_recipe) TextView mRecipeTextView;
+    // Provide a reference to the views for each data item
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @BindView(R.id.tv_recipe)
+        TextView mRecipeTextView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
@@ -47,7 +51,7 @@ class RecipesAdapter
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-            Toast.makeText(itemView.getContext(), "adapterPOsition  " + adapterPosition,Toast.LENGTH_SHORT).show();
+            Toast.makeText(itemView.getContext(), "adapterPOsition  " + adapterPosition, Toast.LENGTH_SHORT).show();
 
         }
     }
