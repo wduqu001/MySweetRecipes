@@ -8,11 +8,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import willian.mysweetrecipes.model.Recipe;
 
-class RecipesAdapter
+public class RecipesAdapter
         extends RecyclerView.Adapter<RecipesAdapter.ViewHolder> {
+
+    private List<Recipe> recipeList =  new ArrayList<>();
+
+    public void setRecipeList(List<Recipe> recipes){
+        this.recipeList = recipes;
+    }
 
     // Create new views (invoked by the layout manager)
     @Override
@@ -28,13 +38,12 @@ class RecipesAdapter
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        /* not yet implemented*/
+        holder.mRecipeTextView.setText(recipeList.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        /* not yet implemented*/
-        return 3;
+        return recipeList.size();
     }
 
     // Provide a reference to the views for each data item
