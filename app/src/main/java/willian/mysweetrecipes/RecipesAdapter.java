@@ -1,12 +1,14 @@
 package willian.mysweetrecipes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,28 +18,33 @@ import butterknife.ButterKnife;
 import willian.mysweetrecipes.model.Recipe;
 
 public class RecipesAdapter
-        extends RecyclerView.Adapter<RecipesAdapter.ViewHolder> {
+        extends RecyclerView.Adapter<RecipesAdapter.RecipesViewHolder> {
 
-    private List<Recipe> recipeList =  new ArrayList<>();
+    private Context mContext;
+    private List<Recipe> recipeList = new ArrayList<>();
 
-    public void setRecipeList(List<Recipe> recipes){
+     RecipesAdapter(Context context) {
+        this.mContext = context;
+    }
+
+    void setRecipeList(List<Recipe> recipes) {
         this.recipeList = recipes;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public RecipesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecipesAdapter.RecipesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        int layoutIdForListItem = R.layout.recipes_list_item;
+        int layoutIdForListItem = R.layout.recipe_linear_content;
         final boolean shouldAttachToParentImmediately = false;
         View view = LayoutInflater.from(context)
                 .inflate(layoutIdForListItem, parent, shouldAttachToParentImmediately);
-        return new ViewHolder(view);
+        return new RecipesViewHolder(view);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(RecipesViewHolder holder, int position) {
         holder.mRecipeTextView.setText(recipeList.get(position).getName());
     }
 
@@ -47,11 +54,11 @@ public class RecipesAdapter
     }
 
     // Provide a reference to the views for each data item
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @BindView(R.id.tv_recipe)
+    class RecipesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @BindView(R.id.tv_subtitle)
         TextView mRecipeTextView;
 
-        ViewHolder(View itemView) {
+        RecipesViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
@@ -59,8 +66,14 @@ public class RecipesAdapter
 
         @Override
         public void onClick(View v) {
-            int adapterPosition = getAdapterPosition();
-            Toast.makeText(itemView.getContext(), "adapterPOsition  " + adapterPosition, Toast.LENGTH_SHORT).show();
+            int position = getAdapterPosition();
+            Intent intent = new Intent(mContext, RecipeStepsActivity.class);
+            Recipe recipe = recipeList.get(position);
+
+            String recipeJson = (new Gson().toJson(recipe));
+
+            intent.putExtra("recipe", recipeJson);
+            mContext.startActivity(intent);
 
         }
     }

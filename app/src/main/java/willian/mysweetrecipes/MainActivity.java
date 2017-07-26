@@ -23,18 +23,18 @@ import willian.mysweetrecipes.rest.RetroClient;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private RecipesAdapter mRecipesAdapter;
     @BindView(R.id.recyclerview_recipes)
     RecyclerView mRecyclerView;
     @BindView(R.id.pbProgress)
     ProgressBar mLoadingIndicator;
-    private static RecipesAdapter mRecipesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mRecipesAdapter = new RecipesAdapter();
+        mRecipesAdapter = new RecipesAdapter(this);
 
         getApiData();
 
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Recipe>>() {
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                if(!response.isSuccessful() ){
+                if (!response.isSuccessful()) {
                     showErrorMessage();
                     return;
                 }
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showErrorMessage() {
         mLoadingIndicator.setVisibility(View.GONE);
-        Toast.makeText(this,"Unable to sync with the server. Please check your connection and try again",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Unable to sync with the server. Please check your connection and try again", Toast.LENGTH_LONG).show();
     }
 
     private void showRecipes() {
