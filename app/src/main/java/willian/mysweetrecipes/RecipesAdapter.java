@@ -23,7 +23,7 @@ public class RecipesAdapter
     private Context mContext;
     private List<Recipe> recipeList = new ArrayList<>();
 
-     RecipesAdapter(Context context) {
+    RecipesAdapter(Context context) {
         this.mContext = context;
     }
 

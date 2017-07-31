@@ -23,11 +23,11 @@ import willian.mysweetrecipes.rest.RetroClient;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private RecipesAdapter mRecipesAdapter;
     @BindView(R.id.recyclerview_recipes)
     RecyclerView mRecyclerView;
     @BindView(R.id.pbProgress)
     ProgressBar mLoadingIndicator;
+    private RecipesAdapter mRecipesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

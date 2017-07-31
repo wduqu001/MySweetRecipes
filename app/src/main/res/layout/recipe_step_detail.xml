@@ -14,7 +14,9 @@
         style="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
+        android:layout_marginRight="@dimen/text_margin"
+        android:layout_marginLeft="@dimen/text_margin"
+        tools:text="@string/long_text_sample"
         tools:context="willian.mysweetrecipes.RecipeStepDetailFragment" />
 </LinearLayout>
 
