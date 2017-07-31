@@ -6,11 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 
 /**
  * An activity representing a single recipe step detail screen. This
- * activity is only used narrow width devices.
+ * activity is only used with narrow width devices.
  * On tablet-size devices, recipe step details are presented side-by-side
  * with a list of steps in a {@link RecipeStepsActivity}.
  */
 public class RecipeStepDetailActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,5 +36,6 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
                     .add(R.id.recipe_step_detail_container, fragment)
                     .commit();
         }
+
     }
 }

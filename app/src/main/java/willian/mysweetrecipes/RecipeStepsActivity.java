@@ -74,9 +74,6 @@ public class RecipeStepsActivity extends AppCompatActivity {
             holder.mStep = mValues.get(position);
             holder.mStepDescriptionView.setText(mValues.get(position).getShortDescription());
 
-            /* shows the step content like 1. Preheat the oven to 350 F*/
-//            holder.mContentView.setText(mValues.get(position).getDescription());
-
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -109,20 +106,13 @@ public class RecipeStepsActivity extends AppCompatActivity {
         class ViewHolder extends RecyclerView.ViewHolder {
             final View mView;
             final TextView mStepDescriptionView;
-            //            public final TextView mContentView;
             Step mStep;
 
             ViewHolder(View view) {
                 super(view);
                 mView = view;
                 mStepDescriptionView = (TextView) view.findViewById(R.id.tv_subtitle);
-//                mContentView = (TextView) view.findViewById(R.id.content);
             }
-//
-//            @Override
-//            public String toString() {
-//                return super.toString() + " '" + mContentView.getText() + "'";
-//            }
         }
     }
 }
