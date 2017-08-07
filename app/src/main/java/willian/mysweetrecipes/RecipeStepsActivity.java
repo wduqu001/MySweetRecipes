@@ -78,8 +78,10 @@ public class RecipeStepsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Bundle arguments = new Bundle();
-                    arguments.putString("description", mValues.get(position).getDescription());
-                    arguments.putString("video", mValues.get(position).getVideoURL());
+                    int index = holder.getAdapterPosition();
+                    arguments.putString("description", mValues.get(index).getDescription());
+                    arguments.putString("videoURL", mValues.get(index).getVideoURL());
+                    arguments.putString("thumbnailURL", mValues.get(index).getThumbnailURL());
 
                     if (mTwoPane) {
                         RecipeStepDetailFragment fragment = new RecipeStepDetailFragment();

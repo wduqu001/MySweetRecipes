@@ -4,19 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-        android:id="@+id/playerView"
-        android:layout_width="match_parent"
-        android:layout_height="350dp" />
-
     <TextView
         android:id="@+id/tv_description"
         style="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginRight="@dimen/text_margin"
         android:layout_marginLeft="@dimen/text_margin"
-        tools:text="@string/long_text_sample"
-        tools:context="willian.mysweetrecipes.RecipeStepDetailFragment" />
+        android:layout_marginRight="@dimen/text_margin"
+        tools:context="willian.mysweetrecipes.RecipeStepDetailFragment"
+        tools:text="@string/long_text_sample" />
+
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/playerView"
+        android:layout_width="match_parent"
+        android:layout_height="350dp" />
 </LinearLayout>
 

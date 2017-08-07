@@ -22,8 +22,9 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 public class RecipeStepDetailFragment extends Fragment {
-    private String VIDEO_URL;
     private String DESCRIPTION;
+    private String VIDEO_URL;
+    private String THUMBNAIL_URL;
     private SimpleExoPlayer mPlayer;
     private SimpleExoPlayerView mPlayerView;
     private TextView mDescriptionView;
@@ -42,20 +43,25 @@ public class RecipeStepDetailFragment extends Fragment {
         Activity activity = this.getActivity();
         activity.setTitle(DESCRIPTION);
 
-        VIDEO_URL = getArguments().getString("video");
         DESCRIPTION = getArguments().getString("description");
+        VIDEO_URL = getArguments().getString("videoURL");
+        THUMBNAIL_URL = getArguments().getString("thumbnailURL");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.recipe_step_detail, container, false);
 
-        mDescriptionView = ((TextView) rootView.findViewById(R.id.tv_description));
-        mPlayerView = ((SimpleExoPlayerView) rootView.findViewById(R.id.playerView));
+        mDescriptionView = (TextView) rootView.findViewById(R.id.tv_description);
+        mPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.playerView);
 
-        mDescriptionView.setText(DESCRIPTION);
-        InitializePlayer(Uri.parse(VIDEO_URL));
+        mDescriptionView.setText(String.valueOf(DESCRIPTION));
 
+        if(VIDEO_URL.isEmpty() && THUMBNAIL_URL.isEmpty()){
+            mPlayerView.setVisibility(View.GONE);
+        }
+        String mediaUrl = VIDEO_URL.isEmpty() ? THUMBNAIL_URL : VIDEO_URL;
+        InitializePlayer(Uri.parse(mediaUrl));
 
         return rootView;
     }
@@ -75,7 +81,10 @@ public class RecipeStepDetailFragment extends Fragment {
             mPlayerView.setPlayer(mPlayer);
             // Prepare the MediaSource
             String userAgent = Util.getUserAgent(getContext(), getString(R.string.app_name));
-            MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
+            MediaSource mediaSource = new ExtractorMediaSource(
+                    mediaUri,
+                    new DefaultDataSourceFactory(getContext(), userAgent),
+                    new DefaultExtractorsFactory(), null, null);
             mPlayer.prepare(mediaSource);
             mPlayer.setPlayWhenReady(true);
         }
