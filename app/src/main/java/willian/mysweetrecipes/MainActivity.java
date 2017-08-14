@@ -32,9 +32,10 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     @BindView(R.id.pbProgress)
     ProgressBar mLoadingIndicator;
+    Type recipeListType = new TypeToken<ArrayList<Recipe>>() {
+    }.getType();
     private RecipesAdapter mRecipesAdapter;
     private List<Recipe> mRecipes;
-    Type recipeListType = new TypeToken<ArrayList<Recipe>>(){}.getType();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +48,9 @@ public class MainActivity extends AppCompatActivity {
         // recovering the instance state
         if (savedInstanceState != null) {
             String json = savedInstanceState.getString("recipes");
-            mRecipes = new Gson().fromJson(json, recipeListType );
+            mRecipes = new Gson().fromJson(json, recipeListType);
             showRecipes();
-        }
-        else {
+        } else {
             getApiData();
         }
 
