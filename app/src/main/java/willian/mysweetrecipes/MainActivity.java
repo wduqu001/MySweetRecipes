@@ -9,6 +9,11 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,20 +33,38 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.pbProgress)
     ProgressBar mLoadingIndicator;
     private RecipesAdapter mRecipesAdapter;
+    private List<Recipe> mRecipes;
+    Type recipeListType = new TypeToken<ArrayList<Recipe>>(){}.getType();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // TODO: ADD WIDGET ( HOME SCREEN)
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mRecipesAdapter = new RecipesAdapter(this);
 
-        getApiData();
+        // recovering the instance state
+        if (savedInstanceState != null) {
+            String json = savedInstanceState.getString("recipes");
+            mRecipes = new Gson().fromJson(json, recipeListType );
+            showRecipes();
+        }
+        else {
+            getApiData();
+        }
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(
                 new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mRecipesAdapter);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        String recipes = new Gson().toJson(mRecipes, recipeListType);
+        outState.putString("recipes", recipes);
+        super.onSaveInstanceState(outState);
     }
 
     /**
@@ -58,21 +81,14 @@ public class MainActivity extends AppCompatActivity {
                     showErrorMessage();
                     return;
                 }
-                List<Recipe> recipes = response.body();
-                mRecipesAdapter.setRecipeList(recipes);
-                mRecipesAdapter.notifyDataSetChanged();
+                mRecipes = response.body();
                 showRecipes();
             }
 
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
+                Log.e(TAG, t.getMessage());
                 showErrorMessage();
-
-                if (t.getMessage().equals("Unable to resolve host \"go.udacity.com\": No address associated with hostname")) {
-                    Log.e(TAG, "There is no Internet connection or the API is down");
-                } else {
-                    Log.e(TAG, t.getMessage());
-                }
             }
         });
     }
@@ -83,8 +99,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showRecipes() {
+        mRecipesAdapter.setRecipeList(mRecipes);
+        mRecipesAdapter.notifyDataSetChanged();
         mLoadingIndicator.setVisibility(View.GONE);
         mRecyclerView.setVisibility(View.VISIBLE);
     }
+
 
 }

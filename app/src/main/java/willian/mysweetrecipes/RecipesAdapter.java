@@ -21,14 +21,14 @@ public class RecipesAdapter
         extends RecyclerView.Adapter<RecipesAdapter.RecipesViewHolder> {
 
     private Context mContext;
-    private List<Recipe> recipeList = new ArrayList<>();
+    private List<Recipe> mRecipeList = new ArrayList<>();
 
     RecipesAdapter(Context context) {
         this.mContext = context;
     }
 
     void setRecipeList(List<Recipe> recipes) {
-        this.recipeList = recipes;
+        this.mRecipeList = recipes;
     }
 
     // Create new views (invoked by the layout manager)
@@ -45,12 +45,13 @@ public class RecipesAdapter
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(RecipesViewHolder holder, int position) {
-        holder.mRecipeTextView.setText(recipeList.get(position).getName());
+        String recipe = mRecipeList.get(position).getName();
+        holder.mRecipeTextView.setText(recipe);
     }
 
     @Override
     public int getItemCount() {
-        return recipeList.size();
+        return mRecipeList.size();
     }
 
     // Provide a reference to the views for each data item
@@ -68,7 +69,7 @@ public class RecipesAdapter
         public void onClick(View v) {
             int position = getAdapterPosition();
             Intent intent = new Intent(mContext, RecipeStepsActivity.class);
-            Recipe recipe = recipeList.get(position);
+            Recipe recipe = mRecipeList.get(position);
 
             String recipeJson = (new Gson().toJson(recipe));
 

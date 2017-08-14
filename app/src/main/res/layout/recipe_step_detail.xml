@@ -8,7 +8,8 @@
         android:id="@+id/tv_description"
         style="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginLeft="@dimen/text_margin"
         android:layout_marginRight="@dimen/text_margin"
         tools:context="willian.mysweetrecipes.RecipeStepDetailFragment"
@@ -17,6 +18,9 @@
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:id="@+id/playerView"
         android:layout_width="match_parent"
-        android:layout_height="350dp" />
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginRight="@dimen/text_margin"/>
 </LinearLayout>
 
