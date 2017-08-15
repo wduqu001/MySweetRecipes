@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/recipes_widget"
+    android:minHeight="40dp"
+    android:minWidth="40dp"
+    android:previewImage="@drawable/ic_recipebook_round"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content" />

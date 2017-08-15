@@ -3,4 +3,6 @@
     <string name="long_text_sample">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="appwidget_text">No recipe has been selected</string>
+    <string name="add_widget">Add widget</string>
 </resources>
