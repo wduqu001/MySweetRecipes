@@ -3,20 +3,6 @@
     android:layout_height="match_parent"
     android:padding="@dimen/widget_margin">
 
-    <!--<TextView-->
-        <!--android:id="@+id/appwidget_text"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_margin="8dp"-->
-        <!--android:background="#09C"-->
-        <!--android:contentDescription="@string/app_name"-->
-        <!--tools:text="@string/app_name"-->
-        <!--android:textColor="#ffffff"-->
-        <!--android:textSize="24sp"-->
-        <!--android:textStyle="bold|italic" />-->
-
     <ImageView
         android:id="@+id/widget_recipe_image"
         android:layout_width="match_parent"
